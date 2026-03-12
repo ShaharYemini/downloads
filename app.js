@@ -22,7 +22,7 @@
   }
   const { USER, REPO, FOLDER, TITLE, TAGLINE, EMAIL } = (typeof SITE_CONFIG !== "undefined")
     ? SITE_CONFIG
-    : { USER: "", REPO: "", FOLDER: "downloads", TITLE: "Projects", TAGLINE: "", EMAIL: "" };
+    : { USER: "", REPO: "", FOLDER: "items", TITLE: "Projects", TAGLINE: "", EMAIL: "" };
 
   const RAW_BASE = `https://raw.githubusercontent.com/${USER}/${REPO}/main`;
   const API_BASE = `https://api.github.com/repos/${USER}/${REPO}/contents`;
@@ -66,9 +66,22 @@
     const footerEmail = $("footer-email");
     if (footerEmail) {
       if (EMAIL) {
-        footerEmail.href  = `mailto:${EMAIL}`;
-        footerEmail.title = EMAIL;
         footerEmail.textContent = EMAIL;
+        footerEmail.style.cursor = "pointer";
+        footerEmail.title = "לחץ להעתקה";
+        footerEmail.addEventListener("click", () => {
+          navigator.clipboard.writeText(EMAIL).then(() => {
+            const orig = footerEmail.textContent;
+            footerEmail.textContent = "✓ הועתק";
+            setTimeout(() => { footerEmail.textContent = orig; }, 1800);
+          }).catch(() => {
+            /* fallback — select text */
+            const range = document.createRange();
+            range.selectNode(footerEmail);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+          });
+        });
       } else {
         footerEmail.style.display = "none";
         const sep = footerEmail.previousElementSibling;
@@ -200,7 +213,6 @@
               : "");
 
         card.innerHTML = `
-          ${item.imageUrl ? `<img class="card-image" src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.style.display='none'">` : ""}
           <div class="card-top">
             <span class="card-name">${escapeHtml(item.name)}</span>
             <span class="card-arrow">${arrowSvg}</span>
@@ -309,7 +321,7 @@
       $("detail-name").textContent = folder;
       $("detail-desc").textContent = desc || "אין תיאור זמין.";
 
-      /* Image block */
+      /* Image block — toggle button */
       const imgWrap = $("detail-image-wrap");
       if (imgWrap) {
         if (imageUrl) {
@@ -319,9 +331,23 @@
             const captEl = $("detail-image-caption");
             if (captEl) { captEl.textContent = imageCapt; show(captEl); }
           }
-          show(imgWrap);
-        } else {
-          hide(imgWrap);
+          imgWrap.style.display = "";
+          const toggleBtn = $("img-toggle");
+          const imgPanel  = $("img-panel");
+          if (toggleBtn && imgPanel) {
+            toggleBtn.addEventListener("click", () => {
+              const open = !imgPanel.classList.contains("hidden");
+              if (open) {
+                imgPanel.classList.add("hidden");
+                toggleBtn.setAttribute("aria-expanded", "false");
+                toggleBtn.innerHTML = toggleBtn.innerHTML.replace("הסתר תמונה", "הצג תמונה");
+              } else {
+                imgPanel.classList.remove("hidden");
+                toggleBtn.setAttribute("aria-expanded", "true");
+                toggleBtn.innerHTML = toggleBtn.innerHTML.replace("הצג תמונה", "הסתר תמונה");
+              }
+            });
+          }
         }
       }
 
@@ -336,7 +362,10 @@
         if (visitCard) {
           show(visitCard);
           const visitBtn = $("visit-btn");
-          if (visitBtn && resolvedLinkUrl) visitBtn.href = resolvedLinkUrl;
+          if (visitBtn && resolvedLinkUrl) {
+            visitBtn.setAttribute("href", resolvedLinkUrl);
+            visitBtn.onclick = (e) => { e.preventDefault(); window.open(resolvedLinkUrl, "_blank", "noopener"); };
+          }
           /* הצג URL + תאריך עדכון */
           const urlDisplay = $("site-url-display");
           if (urlDisplay) {

@@ -6,8 +6,8 @@
  */
 const SITE_CONFIG = {
   USER:    "ShaharYemini",          // שם המשתמש ב-GitHub
-  REPO:    "downloads",              // שם הריפוזיטורי
-  FOLDER:  "downloads",             // שם התיקייה בריפוזיטורי
+  REPO:    "products",              // שם הריפוזיטורי
+  FOLDER:  "items",             // שם התיקייה בריפוזיטורי
   TITLE:   "ארכיון פיתוח",        // כותרת האתר
   TAGLINE: "שלום! לפניכם כמה מיזמים קטנים שהתאפשר לי להנגיש לכולם בתוכנה למחשב או באתר. מוזמנים בחום להוריד ולהשתמש בכולם, אשמח לשמוע תגובות!",
   EMAIL:   "yem.shahar@gmail.com",  // your@email.com — ריק להסתרה

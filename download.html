@@ -57,10 +57,16 @@
         <p class="detail-desc" id="detail-desc">—</p>
       </div>
 
-      <!-- Optional image + caption -->
-      <div class="detail-image-wrap hidden" id="detail-image-wrap">
-        <img id="detail-image" src="" alt="" loading="lazy" onerror="this.closest('.detail-image-wrap').style.display='none'">
-        <p class="detail-image-caption hidden" id="detail-image-caption"></p>
+      <!-- Optional image + caption (collapsed by default) -->
+      <div id="detail-image-wrap" style="display:none;">
+        <button class="img-toggle" id="img-toggle" aria-expanded="false">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-5 4 5"/><circle cx="8.5" cy="13.5" r="1.5"/></svg>
+          הצג תמונה
+        </button>
+        <div class="img-panel hidden" id="img-panel">
+          <img id="detail-image" src="" alt="" loading="lazy" onerror="this.closest('.img-panel').style.display='none'">
+          <p class="detail-image-caption hidden" id="detail-image-caption"></p>
+        </div>
       </div>
 
       <!-- Download card (type=download) -->
@@ -130,7 +136,7 @@
     <span class="footer-dot">·</span>
     <a id="footer-gh" href="#" target="_blank">GitHub</a>
     <span class="footer-dot">·</span>
-    <a id="footer-email" href="#">✉</a>
+    <span id="footer-email"></span>
   </footer>
 
   <script src="config.js"></script>

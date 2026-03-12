@@ -15,11 +15,13 @@ your-repo/
 ├── download.html
 ├── style.css
 ├── app.js
-└── downloads/
+└── items/
     ├── My Tool/
     │   ├── my-tool.zip
+    │   ├── preview.png        ← אופציונאלי
     │   └── description.txt
     └── My Website/
+        ├── preview.jpg        ← אופציונאלי
         └── description.txt
 ```
 
@@ -28,9 +30,10 @@ your-repo/
 ```js
 const USER     = "your-username";
 const REPO     = "your-repo-name";
-const FOLDER   = "downloads";
+const FOLDER   = "items";
 const TITLE    = "שם הפרויקט שלך";
 const TAGLINE  = "פרויקטים שנבנו בקפידה.";
+const EMAIL    = "your@email.com";   // השאר ריק להסתרה
 ```
 
 ### 3. הפעל GitHub Pages
@@ -47,7 +50,7 @@ const TAGLINE  = "פרויקטים שנבנו בקפידה.";
 תיאור קצר של הכלי
 https://github.com/user/repo    ← אופציונאלי — קישור קוד מקור
 download                         ← אופציונאלי (ברירת מחדל)
-https://example.com/img.png     ← אופציונאלי — תמונת preview
+https://example.com/img.png     ← אופציונאלי — URL לתמונה*
 כיתוב לתמונה                    ← אופציונאלי
 ```
 
@@ -57,11 +60,11 @@ https://example.com/img.png     ← אופציונאלי — תמונת preview
 תיאור האתר
 https://mywebsite.com           ← כתובת האתר (כפתור "בקר באתר")
 web                              ← חובה לציין
-https://example.com/preview.png ← אופציונאלי — תמונת preview
+https://example.com/preview.png ← אופציונאלי — URL לתמונה*
 כיתוב לתמונה                    ← אופציונאלי
 ```
 
-לכרטיס אתר — אין צורך בקובץ להורדה בתיקייה.
+> **תמונת Preview:** העדיפות הראשונה היא קובץ `preview.png` (או `.jpg/.webp/.gif`) בתוך תיקיית הפרויקט. לחלופין, ניתן לספק URL בשורה 4 של `description.txt`. לכרטיס אתר — אין צורך בקובץ הורדה בתיקייה.
 
 ---
 
