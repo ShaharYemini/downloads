@@ -1,0 +1,3 @@
+אבטיפוס - מייצר שאלות על דפי גמרא נבחרים.
+https://gemara-click.streamlit.app/
+web

@@ -1,0 +1,3 @@
+משחק בול פגיעה אינטרנטי, מאפשר להתמודד ולנתח מהלכים מול בינה מלאכותית.
+https://shaharyemini.github.io/bullsncows/
+web

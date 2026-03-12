@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>הורדה — טוען…</title>
+  <title>פרויקט — טוען…</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Rubik:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
@@ -15,62 +15,118 @@
 
   <header>
     <div class="header-inner">
-      <a class="wordmark back-link" id="site-title" href="index.html">→ חזרה</a>
-      <a class="gh-link" id="gh-link" href="#" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
+      <a class="wordmark back-link" href="index.html">→ כל הפרויקטים</a>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="החלף מצב תצוגה">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <a class="gh-link" id="gh-link" href="#" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
     </div>
   </header>
 
   <main class="detail-main">
+
     <div class="loading-state" id="loading">
       <div class="spinner"></div>
       <span>טוען…</span>
     </div>
 
     <div class="detail-content hidden" id="detail-content">
+
+      <!-- Meta -->
       <div class="detail-meta">
-        <span class="detail-label">הורדה</span>
+        <span class="detail-label" id="detail-label">פרויקט</span>
         <h1 id="detail-name">—</h1>
         <p class="detail-desc" id="detail-desc">—</p>
       </div>
 
-      <div class="detail-card">
+      <!-- Optional image + caption -->
+      <div class="detail-image-wrap hidden" id="detail-image-wrap">
+        <img id="detail-image" src="" alt="" loading="lazy" onerror="this.closest('.detail-image-wrap').style.display='none'">
+        <p class="detail-image-caption hidden" id="detail-image-caption"></p>
+      </div>
+
+      <!-- Download card (type=download) -->
+      <div class="detail-card" id="file-card">
         <div class="file-info">
           <div class="file-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
           </div>
           <div class="file-details">
             <span class="file-name" id="file-name">—</span>
-            <span class="file-size" id="file-size">—</span>
+            <span class="file-size" id="file-size"></span>
+            <span class="file-updated" id="file-updated"></span>
           </div>
         </div>
+        <a class="download-btn" id="download-btn" href="#" download>הורדה</a>
+      </div>
 
-        <a class="download-btn" id="download-btn" href="#" download>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          הורדה
+      <!-- Visit card (type=web) -->
+      <div class="detail-card hidden" id="visit-card">
+        <div class="file-info">
+          <div class="file-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div class="file-details">
+            <span class="file-name" id="site-url-display"></span>
+            <span class="file-updated" id="file-updated"></span>
+          </div>
+        </div>
+        <a class="visit-btn" id="visit-btn" href="#" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          בקר באתר
         </a>
       </div>
 
+      <!-- Actions -->
       <div class="detail-actions">
-        <a class="text-link" id="raw-link" href="#" target="_blank">צפייה בקובץ ב-GitHub ←</a>
+        <a class="text-link hidden" id="raw-link" href="#" target="_blank">צפייה בקובץ ב-GitHub ←</a>
         <a class="text-link hidden" id="repo-source-link" href="#" target="_blank" rel="noopener">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-left:4px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          צפייה בקוד המקור ←
+          קוד מקור ←
         </a>
       </div>
-    </div>
+
+    </div><!-- /detail-content -->
 
     <div class="error-state hidden" id="error-state">
       <span>משהו השתבש.</span>
-      <p id="error-msg">לא ניתן לטעון את ההורדה.</p>
-      <a href="index.html">→ חזרה לכל ההורדות</a>
+      <p id="error-msg">לא ניתן לטעון את הפרויקט.</p>
+      <a href="index.html">→ חזרה לכל הפרויקטים</a>
     </div>
+
   </main>
 
   <footer>
-    <span id="footer-copy">© <span id="year"></span></span>
+    <span id="footer-copy"></span>
     <span class="footer-dot">·</span>
     <a id="footer-gh" href="#" target="_blank">GitHub</a>
   </footer>

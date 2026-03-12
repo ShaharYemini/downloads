@@ -1,13 +1,13 @@
-# Downloads Site
+# Projects Site
 
-A clean, automatic downloads page powered by the GitHub API.  
-No build step. No config file. Drop in a folder and it works.
+אתר פרויקטים אוטומטי המופעל ע"י GitHub API.  
+ללא שלב build. ללא קובץ config נפרד. הוסף תיקייה — הכרטיס מופיע מיד.
 
 ---
 
-## Setup
+## התקנה
 
-### 1. Clone or copy the site files into your repository root
+### 1. העתק את קבצי האתר לשורש הריפוזיטורי
 
 ```
 your-repo/
@@ -15,65 +15,64 @@ your-repo/
 ├── download.html
 ├── style.css
 ├── app.js
-└── downloads/          ← your downloads folder
+└── downloads/
     ├── My Tool/
     │   ├── my-tool.zip
     │   └── description.txt
-    └── Another App/
-        ├── another-app.exe
+    └── My Website/
         └── description.txt
 ```
 
-### 2. Edit the config block in `index.html`
+### 2. ערוך את ה-config ב-`app.js`
 
-Near the top of `index.html`, find this block and fill in your details:
-
-```html
-<script>
-  const GITHUB_USER      = "your-username";
-  const GITHUB_REPO      = "your-repo-name";
-  const DOWNLOADS_FOLDER = "downloads";       // folder name in the repo
-  const SITE_TITLE       = "My Project";      // shown as the page title
-  const SITE_TAGLINE     = "Tools ready to download.";
-</script>
+```js
+const USER     = "your-username";
+const REPO     = "your-repo-name";
+const FOLDER   = "downloads";
+const TITLE    = "שם הפרויקט שלך";
+const TAGLINE  = "פרויקטים שנבנו בקפידה.";
 ```
 
-### 3. Enable GitHub Pages
+### 3. הפעל GitHub Pages
 
-Go to **Settings → Pages** in your repository, set source to `main` branch, `/root`, and save.
-
-Your site will be live at `https://your-username.github.io/your-repo/`
+**Settings → Pages** → Source: `main` branch, `/root` → Save.
 
 ---
 
-## Downloads folder structure
+## פורמט description.txt
 
-Each subfolder inside `downloads/` becomes one card on the homepage.
+### כרטיס הורדה (ברירת מחדל)
 
 ```
-downloads/
-└── My Tool/               ← subfolder name becomes the card title
-    ├── my-tool-v1.zip     ← any file (this is what gets downloaded)
-    └── description.txt    ← one short paragraph shown as the card description
+תיאור קצר של הכלי
+https://github.com/user/repo    ← אופציונאלי — קישור קוד מקור
+download                         ← אופציונאלי (ברירת מחדל)
+https://example.com/img.png     ← אופציונאלי — תמונת preview
+כיתוב לתמונה                    ← אופציונאלי
 ```
 
-**Rules:**
-- The subfolder name is the display name shown on the card
-- `description.txt` — optional, any plain text (one line or a short paragraph)
-- Any other file in the subfolder = the downloadable file (first non-`description.txt` file wins)
-- Subfolders with no downloadable file are still shown but the download button is hidden
+### כרטיס אתר (type=web)
+
+```
+תיאור האתר
+https://mywebsite.com           ← כתובת האתר (כפתור "בקר באתר")
+web                              ← חובה לציין
+https://example.com/preview.png ← אופציונאלי — תמונת preview
+כיתוב לתמונה                    ← אופציונאלי
+```
+
+לכרטיס אתר — אין צורך בקובץ להורדה בתיקייה.
 
 ---
 
-## No build step required
+## מה נטען אוטומטית מה-GitHub API
 
-The site fetches the GitHub Contents API at runtime to discover all subfolders automatically.  
-Add a new subfolder → it appears on the site immediately, no redeployment needed.
+- גודל קובץ ההורדה
+- תאריך העדכון האחרון (מ-git commits)
 
 ---
 
-## GitHub API rate limits
+## Rate limits
 
-Unauthenticated requests are limited to **60/hour per IP**.  
-For a personal portfolio or small project this is more than enough.  
-If you expect heavy traffic, consider caching the API response with a Cloudflare Worker.
+בקשות ללא אימות: **60/שעה לכל IP**.  
+לאתר פורטפוליו אישי זה מספיק בהחלט.
