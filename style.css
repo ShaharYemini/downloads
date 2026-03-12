@@ -257,6 +257,35 @@ header {
   flex-shrink: 0;
 }
 
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.card-repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 8px;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+  white-space: nowrap;
+}
+
+.card-repo-link:hover {
+  color: var(--accent);
+  border-color: var(--accent-dim);
+  background: var(--accent-dim);
+}
+
 /* =============================================
    DETAIL PAGE
    ============================================= */

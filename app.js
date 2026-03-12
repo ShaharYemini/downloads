@@ -12,12 +12,14 @@
 (function () {
   "use strict";
 
-  /* ─── Config (set in the <script> block in index.html / mirrored in download.html) ─── */
-  const USER   = typeof GITHUB_USER      !== "undefined" ? GITHUB_USER      : "YOUR_USERNAME";
-  const REPO   = typeof GITHUB_REPO      !== "undefined" ? GITHUB_REPO      : "YOUR_REPO";
-  const FOLDER = typeof DOWNLOADS_FOLDER !== "undefined" ? DOWNLOADS_FOLDER : "downloads";
-  const TITLE  = typeof SITE_TITLE       !== "undefined" ? SITE_TITLE       : "Downloads";
-  const TAGLINE= typeof SITE_TAGLINE     !== "undefined" ? SITE_TAGLINE     : "";
+  /* ═══════════════════════════════════════════
+     הגדרות — ערוך כאן בלבד (קובץ יחיד!)
+     ═══════════════════════════════════════════ */
+  const USER    = "ShaharYemini";                        // ← שם המשתמש ב-GitHub
+  const REPO    = "downloads";                           // ← שם הריפוזיטורי
+  const FOLDER  = "downloads";                           // ← תיקיית ההורדות
+  const TITLE   = "הורדות";                     // ← כותרת האתר
+  const TAGLINE = "כלים שנבנו בקפידה, מוכנים להורדה."; // ← תת-כותרת
 
   const RAW_BASE = `https://raw.githubusercontent.com/${USER}/${REPO}/main`;
   const API_BASE = `https://api.github.com/repos/${USER}/${REPO}/contents`;
@@ -116,15 +118,20 @@
             );
 
             let description = "";
+            let repoUrl = "";
             if (descFile) {
-              /* fetch raw text content */
               const raw = await fetch(descFile.download_url);
-              description = (await raw.text()).trim();
+              const lines = (await raw.text()).trim().split("\n");
+              description = lines[0].trim();
+              /* שורה שנייה אופציונאלית — קישור לריפוזיטורי */
+              const secondLine = (lines[1] || "").trim();
+              if (secondLine.startsWith("http")) repoUrl = secondLine;
             }
 
             return {
               name:     folder.name,
               desc:     description || "אין תיאור זמין.",
+              repoUrl,
               file:     downloadFile ? downloadFile.name : null,
               fileSize: downloadFile ? downloadFile.size : null,
             };
@@ -156,14 +163,21 @@
             </span>
           </div>
           <p class="card-desc">${escapeHtml(item.desc)}</p>
-          ${item.file ? `<span class="card-tag">${fileExt(item.file)} · ${formatBytes(item.fileSize)}</span>` : ""}
+          <div class="card-footer">
+            ${item.file ? `<span class="card-tag">${fileExt(item.file)} · ${formatBytes(item.fileSize)}</span>` : ""}
+            ${item.repoUrl ? `<a class="card-repo-link" href="${escapeHtml(item.repoUrl)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              קוד מקור
+            </a>` : ""}
+          </div>
         `;
 
         card.addEventListener("click", () => {
           const params = new URLSearchParams({
-            folder: item.name,
-            file:   item.file || "",
-            desc:   item.desc,
+            folder:  item.name,
+            file:    item.file || "",
+            desc:    item.desc,
+            repoUrl: item.repoUrl || "",
           });
           window.location.href = `download.html?${params.toString()}`;
         });
@@ -190,6 +204,7 @@
     const folder  = params.get("folder");
     const fileName= params.get("file");
     const desc    = params.get("desc");
+    const repoUrl  = params.get("repoUrl") || "";
 
     const loading = $("loading");
     const content = $("detail-content");
@@ -251,6 +266,17 @@
       const rawLink = $("raw-link");
       rawLink.href = ghFileUrl;
       rawLink.textContent = "צפייה בקובץ הגולמי ב-GitHub ←";
+
+      /* כפתור קוד מקור — מוצג רק אם סופק קישור */
+      const repoLinkEl = $("repo-source-link");
+      if (repoLinkEl) {
+        if (repoUrl) {
+          repoLinkEl.href = repoUrl;
+          repoLinkEl.classList.remove("hidden");
+        } else {
+          repoLinkEl.classList.add("hidden");
+        }
+      }
 
       hide(loading);
       show(content);
